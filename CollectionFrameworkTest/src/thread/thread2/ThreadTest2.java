@@ -1,10 +1,13 @@
 package thread.thread2;
 
+import java.rmi.server.SocketSecurityException;
+
 import thread.AA;
 
 public class ThreadTest2{
 
     public static void main(String[] args) throws InterruptedException{
+        System.out.println("main함수 시작");
         /*
          * Synchronized Method
          * 인스턴스 단위(synchronized가 적용된 곳은 전부 락 공유)의 락
@@ -112,10 +115,9 @@ public class ThreadTest2{
 
         thread1.start();
         thread2.start();
-
-        // thread1.join();
-        // thread2.join();
-
+        thread1.join();
+        thread2.join();
+        System.out.println("main함수 종료");
     }
 
 }

@@ -14,8 +14,6 @@ import javax.sound.sampled.SourceDataLine;
 public class AA {
 
     public void ping() throws InterruptedException {
-        Thread.sleep(1000);
-
         synchronized (this) {
             for (int i = 0; i < 5; i++) {
                 System.out.println("ping");
@@ -26,10 +24,7 @@ public class AA {
     }
 
     public void pong() throws InterruptedException {
-        Thread.sleep(1000);
-
         synchronized (this) {
-
             for (int i = 0; i < 5; i++) {
                 System.out.println("pong");
                 notifyAll();
