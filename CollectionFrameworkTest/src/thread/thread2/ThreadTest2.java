@@ -92,18 +92,29 @@ public class ThreadTest2{
 //멀티스레딩에서는 생각했던대로 동작하지 않을 수 있다.
 //1121 이 나왓던 상황에서는 락을 2개 쓰지 않고 다르게 쓴다
 //reanterance lock
-//읽기와 쓰기를 별도로 락을 걸 수 잇따.
+//읽기와 쓰기를 별도로 락을 걸 수 잇따.cxd
+
         Thread thread1 = new Thread( () -> {
-            aa.ping();
-            aa.ping();
+            try {
+                aa.ping();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
         Thread thread2 = new Thread( () -> {
-            aa.pong();
+            try {
+                aa.pong();
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         });
 
         thread1.start();
-        thread1.join();
         thread2.start();
+
+        // thread1.join();
+        // thread2.join();
 
     }
 
