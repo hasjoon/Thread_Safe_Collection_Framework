@@ -55,10 +55,10 @@ public class ArrayListTest {
         // arr.replaceAll();
 
 
-        // arr.retainAll(arr4);
+        arr.retainAll(arr4);
 
         //Delete
-        // arr.remove(0);
+        arr.remove(0);
         // arr.remove("c");
         // arr.removeAll(arr4);
         // arr.removeIf(n -> (n == "c"));

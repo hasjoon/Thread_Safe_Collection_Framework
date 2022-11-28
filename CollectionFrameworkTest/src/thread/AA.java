@@ -15,22 +15,28 @@ public class AA {
 
     public void ping() throws InterruptedException {
         synchronized (this) {
-            for (int i = 0; i < 5; i++) {
+            // for (int i = 0; i < 5; i++) {
                 System.out.println("ping");
-                wait();
-                notifyAll();
-            }
+                // wait();
+                // notifyAll();
+            // }
         }
+        // for(int i=0; i<3; i++)
+        // System.out.println("ping 동기화 블럭 적용 안된곳");
     }
 
     public void pong() throws InterruptedException {
         synchronized (this) {
-            for (int i = 0; i < 5; i++) {
+            // for (int i = 0; i < 5; i++) {
                 System.out.println("pong");
-                notifyAll();
-                wait();
-            }
+                // notifyAll();
+                // wait();
+            // }
         }
+
+        // for(int i=0; i<3; i++)
+        // System.out.println("pong 동기화 블럭 적용 안된곳");
+
     }
 
 }

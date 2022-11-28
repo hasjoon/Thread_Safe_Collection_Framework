@@ -97,6 +97,7 @@ public class ThreadTest2{
 //reanterance lock
 //읽기와 쓰기를 별도로 락을 걸 수 잇따.cxd
 
+
         Thread thread1 = new Thread( () -> {
             try {
                 aa.ping();
@@ -108,16 +109,24 @@ public class ThreadTest2{
             try {
                 aa.pong();
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         });
 
-        thread1.start();
-        thread2.start();
-        thread1.join();
-        thread2.join();
+        
+
+        fiveTimes(thread1);
+        fiveTimes(thread2);
+    
         System.out.println("main함수 종료");
+    }
+
+    public static void fiveTimes(Thread target) throws InterruptedException{
+        target.start();
+        for(int i=0;i<5;i++){
+            
+          
+        }
     }
 
 }

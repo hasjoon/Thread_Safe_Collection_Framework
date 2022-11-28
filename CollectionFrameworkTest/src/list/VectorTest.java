@@ -3,12 +3,15 @@ package list;
 import java.util.Iterator;
 import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
+import javax.xml.transform.stream.StreamSource;
 
 public class VectorTest {
 
     public static void main(String[] args) {
         Vector<String> ve = new Vector<String>();
-        CopyOnWriteArrayList<String> cow = new CopyOnWriteArrayList<>();
         
 
         // create
@@ -16,9 +19,20 @@ public class VectorTest {
         ve.add("b");
         ve.add("c");
 
-        cow.add("a");
-        cow.add("b");
-        cow.add("c");
+        Stream<String> stream = ve.stream();
+        long count = stream.count();
+        System.out.println("how many? " + count);
+
+        Object[] veToArray = ve.toArray();
+        System.out.println("veTo: " + veToArray);
+
+        Iterator<String> iterator = ve.iterator();
+
+        while(iterator.hasNext()){
+            System.out.println("itt: " + iterator.next());
+        }
+
+        
 
         // read
         // Iterator<String> iterator = ve.iterator();
@@ -32,17 +46,15 @@ public class VectorTest {
         // }
 
         ve.get(0); //synchronized 있음
-        cow.get(0);
 
 
         // update
         ve.setElementAt("3", 0);
         ve.set(0, null);
         System.out.println(ve);
-        cow.set(0, null);
-        System.out.println(cow);
+
         // delete
         ve.remove("a");
-        cow.remove("a");
+
     }
 }

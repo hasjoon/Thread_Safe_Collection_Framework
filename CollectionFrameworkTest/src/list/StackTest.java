@@ -14,8 +14,10 @@ public class StackTest {
         st.push("b");
         st.push("c");
         st.add("d");
+        st.add(0, "possible");
 
         // System.out.println("ddd: " + st);
+
         // //Read
         // st.get(0);
         // st.peek();
@@ -25,20 +27,20 @@ public class StackTest {
         // //Update
         // st.set(2, null);
         // System.out.println(st);
-        UnaryOperator<String> uu = n -> n+n;
-        st.replaceAll(uu);
+        // UnaryOperator<String> uu = n -> n+n;
+        // st.replaceAll(uu);
 
-        Stack<String> st2 = new Stack<>();
-        st2.push("aa");
-        st2.push("bb");
+        // Stack<String> st2 = new Stack<>();
+        // st2.push("aa");
+        // st2.push("bb");
 
-        st.retainAll(st2);
+        // st.retainAll(st2);
 
         System.out.println(st);
 
         // //Delete
         // st.pop();
-        st.remove(st2);
+        // st.remove(st2);
         
         
     }
