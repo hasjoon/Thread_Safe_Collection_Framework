@@ -4,17 +4,51 @@ import java.rmi.server.SocketSecurityException;
 
 import thread.AA;
 
-public class ThreadTest2{
+public class ThreadTest2 {
 
-    public static void main(String[] args) throws InterruptedException{
+    public static void main(String[] args) throws InterruptedException {
         System.out.println("main함수 시작");
-        /*
+        
+
+        AA aa = new AA();
+        // 멀티스레딩에서는 생각했던대로 동작하지 않을 수 있다.
+        // 1121 이 나왓던 상황에서는 락을 2개 쓰지 않고 다르게 쓴다
+        // reanterance lock
+        // 읽기와 쓰기를 별도로 락을 걸 수 잇따.cxd
+
+        
+        Thread thread1 = new Thread(() -> {
+            try {
+                    aa.ping();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        Thread thread2 = new Thread(() -> {
+            try {
+                    aa.pong();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        thread1.start();
+        thread2.start();
+
+        System.out.println("main함수 종료");
+    }
+}
+
+
+
+/*
          * Synchronized Method
          * 인스턴스 단위(synchronized가 적용된 곳은 전부 락 공유)의 락
          * 하나의 객체로 2개의 스레드가 경합함
          * 만약 각각의 객체로 만든다면 lock을 공유하지 않기 때문에 동기화 발생하지 않음
          * 인스턴스의 접근 자체에 락이 걸리는것이 아니라 메소드에 synchronized 키워드가
-         * 있을때 락이 걸림 
+         * 있을때 락이 걸림
          * 
          * 임계영역을 진입할때 한 스레드만 진입가능하도록 함 = synchronized
          * 
@@ -25,34 +59,34 @@ public class ThreadTest2{
          */
         // A a = new A();
         // Thread thread1 = new Thread(() -> {
-        //     a.run("Thead1");
+        // a.run("Thead1");
         // });
         // Thread thread2 = new Thread(() -> {
-        //     a.run("Thead2");
-        //     // a.print("Thread2");
+        // a.run("Thead2");
+        // // a.print("Thread2");
         // });
         // thread1.start();
-        
+
         // // Thread.sleep(5000);
         // thread2.start();
-       /*
-        * Static Synchronized Method
-        * 클래스 단위로 락을 건다 (인스턴스 x)
-        * 객체가 여려개여도 락이 제대로 작동함
-        * 
-        * a2.print활성화
-        * 스태틱단위와 인스턴스단위는 락을 공유하지 않음
-        */
+        /*
+         * Static Synchronized Method
+         * 클래스 단위로 락을 건다 (인스턴스 x)
+         * 객체가 여려개여도 락이 제대로 작동함
+         * 
+         * a2.print활성화
+         * 스태틱단위와 인스턴스단위는 락을 공유하지 않음
+         */
 
         // A a1 = new A();
         // A a2 = new A();
 
         // Thread thread1 = new Thread(() -> {
-        //     a1.run("Thread1");
+        // a1.run("Thread1");
         // });
         // Thread thread2 = new Thread(() -> {
-        //     a2.run("Tread2");
-        //     // a2.print("Thread2");
+        // a2.run("Tread2");
+        // // a2.print("Thread2");
         // });
         // thread1.start();
         // thread2.start();
@@ -66,10 +100,10 @@ public class ThreadTest2{
         // A a = new A();
 
         // Thread thread1 = new Thread(() -> {
-        //     a.run("Thread1");
+        // a.run("Thread1");
         // });
         // Thread thread2 = new Thread(() -> {
-        //     a.run("Tread2");
+        // a.run("Tread2");
         // });
         // thread1.start();
         // thread2.start();
@@ -78,55 +112,15 @@ public class ThreadTest2{
          * Static Synchronized Block
          * 클래스단위 락
          */
-    //     A a1 = new A();
-    //     A a2 = new A();
+        // A a1 = new A();
+        // A a2 = new A();
 
-    //     Thread thread1 = new Thread(() -> {
-    //         a1.run("Thread1");
-    //     });
-    //     Thread thread2 = new Thread(() -> {
-    //         a2.run("Tread2");
-    //         // a2.print("Thread2");
-    //     });
-    //     thread1.start();
-    //     thread2.start();
-
-        AA aa = new AA();
-//멀티스레딩에서는 생각했던대로 동작하지 않을 수 있다.
-//1121 이 나왓던 상황에서는 락을 2개 쓰지 않고 다르게 쓴다
-//reanterance lock
-//읽기와 쓰기를 별도로 락을 걸 수 잇따.cxd
-
-
-        Thread thread1 = new Thread( () -> {
-            try {
-                aa.ping();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        Thread thread2 = new Thread( () -> {
-            try {
-                aa.pong();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-
-        
-
-        fiveTimes(thread1);
-        fiveTimes(thread2);
-    
-        System.out.println("main함수 종료");
-    }
-
-    public static void fiveTimes(Thread target) throws InterruptedException{
-        target.start();
-        for(int i=0;i<5;i++){
-            
-          
-        }
-    }
-
-}
+        // Thread thread1 = new Thread(() -> {
+        // a1.run("Thread1");
+        // });
+        // Thread thread2 = new Thread(() -> {
+        // a2.run("Tread2");
+        // // a2.print("Thread2");
+        // });
+        // thread1.start();
+        // thread2.start();
