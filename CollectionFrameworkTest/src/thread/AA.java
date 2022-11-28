@@ -15,12 +15,13 @@ import thread.thread2.ThreadTest2;
 
 public class AA {
 
+    Thread thread;
     public void ping() throws InterruptedException {
         synchronized (this) {
             // for (int i = 0; i < 5; i++) {
             System.out.println("ping");
-            wait();
-            notifyAll();
+            notifyAll();     
+            wait();   
             // }
         }
         // for(int i=0; i<3; i++)
