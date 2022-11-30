@@ -1,7 +1,5 @@
 package thread.thread2;
 
-import java.rmi.server.SocketSecurityException;
-
 import thread.AA;
 
 public class ThreadTest2 {
@@ -14,17 +12,26 @@ public class ThreadTest2 {
         // reanterance lock
         // 읽기와 쓰기를 별도로 락을 걸 수 잇따.cxd
 
+        AA aa = new AA();
+
         Thread thread1 = new Thread(() -> {
-            forLoop(null);
+            // forLoop(null);
+            try{
+                // for(int i=0; i<5; i++)
+                aa.ping();
+            } catch(InterruptedException e){
+                e.printStackTrace();
+            }
         });
 
         Thread thread2 = new Thread(() -> {
-            forLoop("a");
-            // try {
-            //     aa.pong();
-            // } catch (InterruptedException e) {
-            //     e.printStackTrace();
-            // }
+            // forLoop("a");
+            try {
+                // for(int i=0; i<5; i++)
+                aa.pong();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
 
         thread1.start();
@@ -34,21 +41,21 @@ public class ThreadTest2 {
         // System.out.println("main함수 종료");
     }
 
-    static void forLoop(String target) {
-        AA aa = new AA();
-        try {
-            for(int i=0; i<5; i++){
-                if(target != null){
-                    aa.ping();
-                }
-                else{
-                    aa.pong();
-                }
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+    // static void forLoop(String target) {
+    //     AA aa = new AA();
+    //     try {
+    //         for(int i=0; i<5; i++){
+    //             if(target != null){
+    //                 aa.ping();
+    //             }
+    //             else{
+    //                 aa.pong();
+    //             }
+    //         }
+    //     } catch (InterruptedException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 }
 
 /*
