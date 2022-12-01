@@ -64,22 +64,36 @@ public class LinkedListTest {
         System.out.println("element: " + element);
 
         // //update
-        ll.set(0, null);       
-        ll.replaceAll((UnaryOperator<String>) lll);      
-        ll.retainAll(lll);
-                                                                            
+        // ll.set(0, null);       
+        ll.replaceAll(s -> s+s);
+        System.out.println("replaceall: " + ll);      
+        // ll.retainAll(lll);
         
         // //delete
-        // ll.remove();
-        // ll.clear();
-        // ll.removeFirst();
+        System.out.println("ll all: " + ll);
+        ll.remove(); //첫번째값 삭제
+
+        ll.add(null);
+        System.out.println("ll remove: " + ll);
+        ll.remove(null); //해당 값 삭제
+        System.out.println("ll remove object: " + ll);
+
+        ll.remove(2); //인덱스 삭제
+    
+        ll.clear();
+
+        LinkedList<String> llll = new LinkedList<>();
+        llll.add("aa");
+        llll.add("bb");
+        llll.add("cc");
+        llll.removeFirst();
         // ll.removeIf(null);
-        // ll.removeAll(ll);
-        // ll.removeLast();
-        // ll.poll();
-        // ll.pollFirst();
-        // ll.pollLast();
-        // ll.pop();
+        ll.removeAll(ll);
+        ll.removeLast();
+        ll.poll();
+        ll.pollFirst();
+        ll.pollLast();
+        ll.pop();
         
     }
     

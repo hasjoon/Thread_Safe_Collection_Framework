@@ -55,6 +55,5 @@ public class VectorTest {
 
         // delete
         ve.remove("a");
-
     }
 }
