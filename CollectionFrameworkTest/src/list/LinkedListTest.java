@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.NavigableMap;
+import java.util.function.UnaryOperator;
 
 public class LinkedListTest {
 
@@ -42,23 +43,31 @@ public class LinkedListTest {
         System.out.println("ll: " + ll);
         System.out.println("ll index?: " + ll.get(2));
         // //read
+        
         ll.get(0);
-        // ll.getFirst();
-        // ll.getLast();
-        // ll.indexOf(ll);
-        // ll.contains(ll);
-        // ll.containsAll(ll);
-        // ll.peek();
-        // ll.peekLast();
-        // ll.peekFirst();
-        // ll.isEmpty();
-        // ll.equals("c");
+        ll.getFirst();
+        ll.getLast();
+        int indexOf = ll.indexOf("cc"); //파라미터 값(object)이 몇번째 있는지 순차탐색
+        boolean contains = ll.contains("bb");
+        System.out.println("contains: " + contains);
+        boolean containsAll = ll.containsAll(ll);
+        System.out.println("containsAll: " + containsAll);
+        String peek = ll.peek();
+        System.out.println("peek: " + peek);
+        String peekLast = ll.peekLast();
+        System.out.println("peeklast: " + peekLast);
+        ll.peekFirst();
+        ll.isEmpty();
+        ll.equals("c");
 
         String element = ll.element();
         System.out.println("element: " + element);
 
         // //update
-        // ll.set(0, null);
+        ll.set(0, null);       
+        ll.replaceAll((UnaryOperator<String>) lll);      
+        ll.retainAll(lll);
+                                                                            
         
         // //delete
         // ll.remove();

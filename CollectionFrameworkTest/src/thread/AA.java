@@ -1,11 +1,6 @@
 package thread;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
-import javax.sound.sampled.SourceDataLine;
-
-import thread.thread2.ThreadTest2;
 
 //list1 add remove 락
 // 반대겨우 synchonize block(this) , 함수정의시에 동기화 가능
@@ -15,29 +10,20 @@ import thread.thread2.ThreadTest2;
 
 public class AA {
 
-    Thread thread;
     public void ping() throws InterruptedException {
         synchronized (this) {
-            // for (int i = 0; i < 5; i++) {
             System.out.println("ping");
             wait();   
             notifyAll();     
-            // }
+            }
         }
-        // for(int i=0; i<3; i++)
-        // System.out.println("ping 동기화 블럭 적용 안된곳");
-    }
 
     public void pong() throws InterruptedException {
         synchronized (this) {
-            // for (int i = 0; i < 5; i++) {
-                System.out.println("pong");
-                notifyAll();
-                wait();
-            // }
+            System.out.println("pong");
+            notifyAll();
+            wait();
+            }
         }
 
-        // for(int i=0; i<3; i++)
-        // System.out.println("pong 동기화 블럭 적용 안된곳");
     }
-}
