@@ -3,61 +3,88 @@ package thread.thread2;
 import thread.AA;
 
 public class ThreadTest2 {
+    static boolean firstPing = true;
 
     public static void main(String[] args) throws InterruptedException {
-        // System.out.println("main함수 시작");
-
-        // 멀티스레딩에서는 생각했던대로 동작하지 않을 수 있다.
-        // 1121 이 나왓던 상황에서는 락을 2개 쓰지 않고 다르게 쓴다
-        // reanterance lock
-        // 읽기와 쓰기를 별도로 락을 걸 수 잇따.cxd
-
+        int count = 10;
         AA aa = new AA();
 
-        Thread thread1 = new Thread(() -> {
-            // forLoop(null);
-            try{
-                // for(int i=0; i<5; i++)
-                aa.ping();
-            } catch(InterruptedException e){
-                e.printStackTrace();
-            }
-        });
-
-        Thread thread2 = new Thread(() -> {
-            // forLoop("a");
+        Thread thread0 = new Thread(() -> {
             try {
-                // for(int i=0; i<5; i++)
-                aa.pong();
+                while (firstPing == true) {
+                    for (int i = 0; i < count; i++) {
+                        System.out.println(Thread.currentThread().getName() + " ping in main Method");
+                        firstPing = false;
+                        aa.ping();
+                    }
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
 
-        thread1.start();
-        // thread1.join();
-        thread2.start();
-        // thread2.join();
-        // System.out.println("main함수 종료");
-    }
+        Thread thread1 = new Thread(() -> {
+            try {
+                aa.pong();
+                if (firstPing != true) {
+                    for (int i = 0; i < count / 2; i++) {
+                        System.out.println(Thread.currentThread().getName() + " pong in main Method");
+                        aa.pong();
+                    }
+                    // aa.oneMoreNotify();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
 
-    // static void forLoop(String target) {
-    //     AA aa = new AA();
-    //     try {
-    //         for(int i=0; i<5; i++){
-    //             if(target != null){
-    //                 aa.ping();
-    //             }
-    //             else{
-    //                 aa.pong();
-    //             }
-    //         }
-    //     } catch (InterruptedException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+        Thread thread2 = new Thread(() -> {
+            try {
+                aa.pong();
+                if (firstPing != true) {
+                    for (int i = 0; i < count / 2; i++) {
+                        System.out.println(Thread.currentThread().getName() + " pong in main Method");
+                        aa.pong();
+                    }
+                    // aa.oneMoreNotify();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        // thread 10번씩
+        // thread2,3 5번씩
+
+        thread2.start();
+        thread1.start();
+        thread0.start();
+
+    }
 }
 
+// static void forLoop(String target) {
+// // AA aa = new AA();
+// try {
+// for(int i=0; i<5; i++){
+// if(target != null){
+// aa.ping();
+// }
+// else{
+// aa.pong();
+// }
+// }
+// } catch (InterruptedException e) {
+// e.printStackTrace();
+// }
+// }
+
+// System.out.println("main함수 시작");
+
+// 멀티스레딩에서는 생각했던대로 동작하지 않을 수 있다.
+// 1121 이 나왓던 상황에서는 락을 2개 쓰지 않고 다르게 쓴다
+// reanterance lock
+// 읽기와 쓰기를 별도로 락을 걸 수 잇따.cxd
 /*
  * Synchronized Method
  * 인스턴스 단위(synchronized가 적용된 곳은 전부 락 공유)의 락

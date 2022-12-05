@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.NavigableMap;
+import java.util.function.UnaryOperator;
 
 public class LinkedListTest {
 
@@ -42,35 +43,57 @@ public class LinkedListTest {
         System.out.println("ll: " + ll);
         System.out.println("ll index?: " + ll.get(2));
         // //read
+        
         ll.get(0);
-        // ll.getFirst();
-        // ll.getLast();
-        // ll.indexOf(ll);
-        // ll.contains(ll);
-        // ll.containsAll(ll);
-        // ll.peek();
-        // ll.peekLast();
-        // ll.peekFirst();
-        // ll.isEmpty();
-        // ll.equals("c");
+        ll.getFirst();
+        ll.getLast();
+        int indexOf = ll.indexOf("cc"); //파라미터 값(object)이 몇번째 있는지 순차탐색
+        boolean contains = ll.contains("bb");
+        System.out.println("contains: " + contains);
+        boolean containsAll = ll.containsAll(ll);
+        System.out.println("containsAll: " + containsAll);
+        String peek = ll.peek();
+        System.out.println("peek: " + peek);
+        String peekLast = ll.peekLast();
+        System.out.println("peeklast: " + peekLast);
+        ll.peekFirst();
+        ll.isEmpty();
+        ll.equals("c");
 
         String element = ll.element();
         System.out.println("element: " + element);
 
         // //update
-        // ll.set(0, null);
+        // ll.set(0, null);       
+        ll.replaceAll(s -> s+s);
+        System.out.println("replaceall: " + ll);      
+        // ll.retainAll(lll);
         
         // //delete
-        // ll.remove();
-        // ll.clear();
-        // ll.removeFirst();
+        System.out.println("ll all: " + ll);
+        ll.remove(); //첫번째값 삭제
+
+        ll.add(null);
+        System.out.println("ll remove: " + ll);
+        ll.remove(null); //해당 값 삭제
+        System.out.println("ll remove object: " + ll);
+
+        ll.remove(2); //인덱스 삭제
+    
+        ll.clear();
+
+        LinkedList<String> llll = new LinkedList<>();
+        llll.add("aa");
+        llll.add("bb");
+        llll.add("cc");
+        llll.removeFirst();
         // ll.removeIf(null);
-        // ll.removeAll(ll);
-        // ll.removeLast();
-        // ll.poll();
-        // ll.pollFirst();
-        // ll.pollLast();
-        // ll.pop();
+        ll.removeAll(ll);
+        ll.removeLast();
+        ll.poll();
+        ll.pollFirst();
+        ll.pollLast();
+        ll.pop();
         
     }
     
