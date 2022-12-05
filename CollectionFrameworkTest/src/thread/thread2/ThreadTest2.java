@@ -3,110 +3,88 @@ package thread.thread2;
 import thread.AA;
 
 public class ThreadTest2 {
+    static boolean firstPing = true;
 
-    //가설1 : 스레드를 2개씩 5번 돌린다 = notifyAll(), wait() 필요 없음
-    //wait 와 notifyAll을 사용해야한다 
-    
     public static void main(String[] args) throws InterruptedException {
-        // 가설1
+        int count = 10;
         AA aa = new AA();
 
-        int count = 5;
+        Thread thread0 = new Thread(() -> {
+            try {
+                while (firstPing == true) {
+                    for (int i = 0; i < count; i++) {
+                        System.out.println(Thread.currentThread().getName() + " ping in main Method");
+                        firstPing = false;
+                        aa.ping();
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
 
-        // for(int i=0; i<count; i++){
-        //     Thread thread1 = new Thread(() -> {
-        //         try {
-        //             aa.ping();
-        //             System.out.println("current Name ping: " + Thread.currentThread().getName());
-        //         } catch (InterruptedException e) {
-        //             e.printStackTrace();
-        //         }
-        //     });
-    
-        //     Thread thread2 = new Thread(() -> {
-        //         try {
-        //             aa.pong();
-        //             System.out.println("current Name pong: " + Thread.currentThread().getName());
-
-        //         } catch (InterruptedException e) {
-        //             e.printStackTrace();
-        //         }
-        //     });
-
-        //     // thread1.setPriority(10);
-        //     // thread2.setPriority(1);
-            
-        //     thread1.start();
-        //     // thread1.join();
-        //     thread2.start();
-        // }
-
-        //가설2
-        // Runnable task = new ThreadTest3();
-
-        // for(int i=0; i<count; i++){
-        //     Thread thread1 = new Thread(task);
-        //     Thread thread2 = new Thread(task);
-        //     thread1.start();
-        //     thread1.join();
-        //     thread2.start();
-
-            // System.out.println("current Name: " + Thread.currentThread().getName());
-            // System.out.println("current Name: " + Thread.currentThread().getName());
-        
-
-
-        //3
         Thread thread1 = new Thread(() -> {
             try {
-                for(int i=0; i<count; i++){
-                    System.out.println("current Thread Name of Pong: " + Thread.currentThread().getName());
-                    aa.ping();
+                aa.pong();
+                if (firstPing != true) {
+                    for (int i = 0; i < count / 2; i++) {
+                        System.out.println(Thread.currentThread().getName() + " pong in main Method");
+                        aa.pong();
+                    }
+                    // aa.oneMoreNotify();
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
+
         Thread thread2 = new Thread(() -> {
             try {
-                for(int i=0; i<count; i++){
-                    System.out.println("current Thread Name of Pong: " + Thread.currentThread().getName());
-                    aa.pong();
+                aa.pong();
+                if (firstPing != true) {
+                    for (int i = 0; i < count / 2; i++) {
+                        System.out.println(Thread.currentThread().getName() + " pong in main Method");
+                        aa.pong();
+                    }
+                    // aa.oneMoreNotify();
                 }
-                
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
-            thread1.start();
-            thread2.start();
+
+        // thread 10번씩
+        // thread2,3 5번씩
+
+        thread2.start();
+        thread1.start();
+        thread0.start();
+
     }
 }
 
-    // static void forLoop(String target) {
-    //     // AA aa = new AA();
-    //     try {
-    //         for(int i=0; i<5; i++){
-    //             if(target != null){
-    //                 aa.ping();
-    //             }
-    //             else{
-    //                 aa.pong();
-    //             }
-    //         }
-    //     } catch (InterruptedException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+// static void forLoop(String target) {
+// // AA aa = new AA();
+// try {
+// for(int i=0; i<5; i++){
+// if(target != null){
+// aa.ping();
+// }
+// else{
+// aa.pong();
+// }
+// }
+// } catch (InterruptedException e) {
+// e.printStackTrace();
+// }
+// }
 
+// System.out.println("main함수 시작");
 
-
-       // System.out.println("main함수 시작");
-
-        // 멀티스레딩에서는 생각했던대로 동작하지 않을 수 있다.
-        // 1121 이 나왓던 상황에서는 락을 2개 쓰지 않고 다르게 쓴다
-        // reanterance lock
-        // 읽기와 쓰기를 별도로 락을 걸 수 잇따.cxd
+// 멀티스레딩에서는 생각했던대로 동작하지 않을 수 있다.
+// 1121 이 나왓던 상황에서는 락을 2개 쓰지 않고 다르게 쓴다
+// reanterance lock
+// 읽기와 쓰기를 별도로 락을 걸 수 잇따.cxd
 /*
  * Synchronized Method
  * 인스턴스 단위(synchronized가 적용된 곳은 전부 락 공유)의 락
