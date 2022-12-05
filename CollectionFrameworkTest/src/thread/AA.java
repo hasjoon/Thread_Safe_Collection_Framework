@@ -15,7 +15,7 @@ public class AA {
 
     public void ping() throws InterruptedException {
         synchronized (this) {
-            // if (threadCount == 0 || mod == 0) {
+            if (threadCount == 0) {
                 // System.out.println(Thread.currentThread().getName() + " ping");
                 System.out.println("<<ping>>");
                 threadCount++;
@@ -24,7 +24,16 @@ public class AA {
                 System.out.println("ping notiall");
                 wait();
                 System.out.println("ping wait");
-            // }
+            } 
+            if(mod == 0) {
+                System.out.println("<<ping>>");
+                threadCount++;
+                System.out.println("ping count");
+                notifyAll();
+                System.out.println("ping notiall");
+                wait();
+                System.out.println("ping wait");
+            }
         }
     }
 

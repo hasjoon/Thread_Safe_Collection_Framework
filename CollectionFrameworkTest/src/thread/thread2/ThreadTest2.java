@@ -11,13 +11,13 @@ public class ThreadTest2 {
 
         Thread thread0 = new Thread(() -> {
             try {
-                while (firstPing == true) {
+                // while (firstPing == true) {
+                    // firstPing = false;
                     for (int i = 0; i < count; i++) {
                         System.out.println(Thread.currentThread().getName() + " ping in main Method");
-                        firstPing = false;
                         aa.ping();
                     }
-                }
+                // }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -25,14 +25,14 @@ public class ThreadTest2 {
 
         Thread thread1 = new Thread(() -> {
             try {
-                aa.pong();
-                if (firstPing != true) {
+                // aa.pong();
+                // if (firstPing != true) {
                     for (int i = 0; i < count / 2; i++) {
                         System.out.println(Thread.currentThread().getName() + " pong in main Method");
                         aa.pong();
                     }
                     // aa.oneMoreNotify();
-                }
+                // }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -40,7 +40,7 @@ public class ThreadTest2 {
 
         Thread thread2 = new Thread(() -> {
             try {
-                aa.pong();
+                // aa.pong();
                 if (firstPing != true) {
                     for (int i = 0; i < count / 2; i++) {
                         System.out.println(Thread.currentThread().getName() + " pong in main Method");
