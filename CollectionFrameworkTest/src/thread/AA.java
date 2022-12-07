@@ -22,12 +22,13 @@ public class AA {
 
     public void pong() throws InterruptedException {
         synchronized (this) {
+            System.out.println("threadCount: " + threadCount);
             if ((threadCount%2 == 1 || threadCount == 1)&&threadCount<19){
                 System.out.println("<<pong>>");
                 threadCount++;
                 notifyAll();
                 wait();
-            }else if(threadCount == 19){
+            }else if(threadCount >= 19){
                 System.out.println("<<pong>>");
                 notifyAll();
             }

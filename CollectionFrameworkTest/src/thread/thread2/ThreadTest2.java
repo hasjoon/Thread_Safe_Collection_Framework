@@ -9,7 +9,6 @@ public class ThreadTest2 {
     static boolean firstPing = true;
     // thread0(ping)이 무조건 첫번째로 실행되도록 처음 스레드에서 체크해주는 변수
     // 그렇지만 이걸 사용하면 처음에 스레드 1,2가 실행되지 않아서 fail
-    static int ccc = 0; //thread1,2 가 할당량을 먼저 채웟을 경우 다른 스레드로 인계도와주는 helper
 
 
     public static void main(String[] args) throws InterruptedException {
@@ -21,9 +20,6 @@ public class ThreadTest2 {
                 if (firstPing) {
                     firstPing = false;
                     for (int i = 0; i < count; i++) {
-                        // System.out.println(Thread.currentThread().getName() + " ping in main
-                        // Method");
-                        // System.out.println("i count of ping: " + i);
                         aa.ping();
                     }
 
@@ -35,22 +31,16 @@ public class ThreadTest2 {
 
         Thread thread1 = new Thread(() -> {
             try {
+                System.out.println("ppppp t1");
                 aa.pong();
-                // System.out.println(Thread.currentThread().getName() + "how thread works");
                 if (!firstPing) {
-                    for (int i = 0; i < count; i++) {
+                    for (int i = 0; i < count2-1; i++) {
                         System.out.println("t1 count2: " + i);
-
-                    
-                        // System.out.println(Thread.currentThread().getName() + " pong in main
-                        // Method");
                         aa.pong();
                     }
                 } else {
-                    // System.out.println("wait pong in main");
                     aa.waitPong();
                 }
-                // aa.oneMoreNotify();
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -59,22 +49,14 @@ public class ThreadTest2 {
 
         Thread thread2 = new Thread(() -> {
             try {
+                System.out.println("ppppp t2"); //없으면 실행안됨
                 aa.pong(); // wait걸리게 해줌
-                // System.out.println(Thread.currentThread().getName() + "how thread works");
-
                 if (!firstPing) {
-                    for (int i = 0; i < count2 ; i++) {
-                        
-                        // System.out.println(Thread.currentThread().getName() + " pong in main
-                        // Method");
+                    for (int i = 0; i < count2-1 ; i++) {
                         System.out.println("t2 count2: " + i);
                         aa.pong();
-                        // }
-                        // aa.oneMoreNotify();
                     }
                 } else {
-                    // System.out.println("wait pong in main");
-
                     aa.waitPong();
                 }
             } catch (InterruptedException e) {
@@ -82,12 +64,9 @@ public class ThreadTest2 {
             }
         });
 
-        // thread 10번씩
-        // thread2,3 5번씩
-
-        thread1.start();
-        // thread2.start();
+        thread2.start();
         thread0.start();
+        thread1.start();
 
     }
 }
